@@ -35,3 +35,6 @@ def showStats(ses):
     print("Wordlist entries...: " + str(len(ses.wordlist)))
     print("Hashes.............: " + str(len(ses.hashes)))
     print("Wordlist...........: " + ses.file)
+    print("Start date.........: " + str(ses.st))
+    print("End date...........: " + str(ses.fs))
+    print("Delta date.........: " + str(ses.delta))

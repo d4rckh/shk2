@@ -5,6 +5,7 @@ from hashcrack.parseHashes import parseHashes
 from hashcrack.Cracker import Cracker
 from hashcrack.encryptors.encindex import getFunc
 from Logger import *
+from datetime import datetime
 
 args = parseArguments()
 
@@ -18,6 +19,9 @@ class CrackerMain:
         self.failed = 0
         self.success = 0
         self.results = []
+        self.st = None
+        self.fs = None
+        self.delta = None
 
     def finish(self, h, w, success):
         if success == True:
@@ -32,6 +36,8 @@ class CrackerMain:
         self.done += 1
         stopThread(self.hashes.index(h))
         if self.done == len(self.hashes):
+            self.fs = datetime.now()
+            self.delta = self.st - self.fs
             finishSession(None)
             showStats(self)
 
@@ -41,6 +47,7 @@ class CrackerMain:
         self.crackers.append(CrackingThread)
 
     def spawnCrackers(self):
+        self.st = datetime.now()
         for hash in self.hashes:
             startThread(self.hashes.index(hash), hash)
             self.spawnCracker(hash)
