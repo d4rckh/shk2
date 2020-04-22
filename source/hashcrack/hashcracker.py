@@ -9,17 +9,17 @@ from Logger import *
 args = parseArguments()
 
 class CrackerMain:
-    def __init__(self, wordlist, hashes):
+    def __init__(self, wordlist, hashes, file):
         self.hashes = hashes
         self.wordlist = wordlist
         self.crackers = []
+        self.file = file
         self.done = 0
         self.failed = 0
         self.success = 0
         self.results = []
 
     def finish(self, h, w, success):
-        stopThread(self.hashes.index(h))
         if success == True:
             self.success += 1
             self.results.append(h + ":" + w)
@@ -30,8 +30,10 @@ class CrackerMain:
             noMatch(self.hashes.index(h), h)
             #print("fail :(")
         self.done += 1
+        stopThread(self.hashes.index(h))
         if self.done == len(self.hashes):
             finishSession(None)
+            showStats(self)
 
     def spawnCracker(self,hash):
         CrackingThread = Cracker(hash, ["cookie"], getFunc(args.type), self.finish)
@@ -46,5 +48,5 @@ class CrackerMain:
 def start():
     with open(args.hashes, "r") as hashesFile:
         hashes = parseHashes(hashesFile.read())
-        Session = CrackerMain(["cookie"], hashes)
+        Session = CrackerMain(["cookie"], hashes, args.hashes)
         Session.spawnCrackers()
