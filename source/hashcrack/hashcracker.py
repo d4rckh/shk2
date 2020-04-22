@@ -37,7 +37,7 @@ class CrackerMain:
         stopThread(self.hashes.index(h))
         if self.done == len(self.hashes):
             self.fs = datetime.now()
-            self.delta = self.st - self.fs
+            self.delta = self.fs - self.st
             finishSession(None)
             showStats(self)
 
