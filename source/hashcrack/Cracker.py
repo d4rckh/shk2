@@ -8,11 +8,17 @@ class Cracker:
         self.x = None
         self.cfunc = cfunc
         self.finish = finish
+        self.finished = False
 
     def th(self, h, wl, cfunc, finish):
         for w in wl:
             if cfunc(w) == h:
-                finish(h, w)
+                finish(h, w, True)
+                self.finished = True
+                return
+        self.finished = True
+        finish(h, None, False)
+
 
     def start(self):
         x = threading.Thread(target=self.th, args=(self.hash,self.wordlist,self.cfunc,self.finish,)) 
