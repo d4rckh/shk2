@@ -1,4 +1,5 @@
 import threading
+from Logger import *
 
 class Cracker:
     
@@ -12,6 +13,8 @@ class Cracker:
 
     def th(self, h, wl, cfunc, finish):
         for w in wl:
+            #print("Checking " + w)
+            crack("PH", str(h), str(w))
             if cfunc(w) == h:
                 finish(h, w, True)
                 self.finished = True

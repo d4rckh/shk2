@@ -7,6 +7,9 @@ args = parseArguments()
 
 printBanner()
 
+if args.vvv:
+    print("Ultra verbosity activated\n")
+
 def shk2(): # Main
     if args.hashcrack == True:
         hashcrackStart()

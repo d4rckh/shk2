@@ -42,7 +42,7 @@ class CrackerMain:
             showStats(self)
 
     def spawnCracker(self,hash):
-        CrackingThread = Cracker(hash, ["cookie"], getFunc(args.type), self.finish)
+        CrackingThread = Cracker(hash, self.wordlist, getFunc(args.type), self.finish)
         CrackingThread.start()
         self.crackers.append(CrackingThread)
 
@@ -55,5 +55,8 @@ class CrackerMain:
 def start():
     with open(args.hashes, "r") as hashesFile:
         hashes = parseHashes(hashesFile.read())
-        Session = CrackerMain(["cookie"], hashes, args.hashes)
+        with open(args.wordlist, "r") as wordlist:
+            wordlist = wordlist.read().split("\n")
+        Session = CrackerMain(wordlist, hashes, args.hashes)
+
         Session.spawnCrackers()

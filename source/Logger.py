@@ -23,18 +23,21 @@ def noMatch(id,h):
 def finishSession(ses):
     print("\n[+] FINISHED")
 
+def crack(id,h,w):
+    print("[" + bcolors.WARNING + "VERB" + bcolors.ENDC + "] Thread" + id + " checked " + h + " with " + w)
+
 def showStats(ses):
     print("")
     for hash in ses.results:
         print(hash)
     print("")
-    print("-"*10 + " FINISHED SESSION " + "-"*10)
-    print("Done...............: " + str(ses.done))
-    print("Fail...............: " + str(ses.failed))
-    print("Success............: " + str(ses.success))
-    print("Wordlist entries...: " + str(len(ses.wordlist)))
-    print("Hashes.............: " + str(len(ses.hashes)))
-    print("Wordlist...........: " + ses.file)
-    print("Start date.........: " + str(ses.st))
-    print("End date...........: " + str(ses.fs))
-    print("Delta date.........: " + str(ses.delta))
+    print("-"*10 + bcolors.HEADER + " FINISHED SESSION " + bcolors.ENDC + "-"*10)
+    print("Done        => " + bcolors.OKBLUE + str(ses.done) + bcolors.ENDC)
+    print("Fail        => " + bcolors.FAIL + str(ses.failed) + bcolors.ENDC)
+    print("Success     => " + bcolors.OKGREEN + str(ses.success) + bcolors.ENDC)
+    print("Words       => " + bcolors.OKBLUE + str(len(ses.wordlist)) + bcolors.ENDC)
+    print("Hashes      => " + bcolors.HEADER+ str(len(ses.hashes)) + bcolors.ENDC)
+    print("Hashes File => " + ses.file)
+    print("Start date  => " + bcolors.OKBLUE + str(ses.st) + bcolors.ENDC)
+    print("Finish date => " + bcolors.OKBLUE + str(ses.fs) + bcolors.ENDC)
+    print("Delta date  => " + bcolors.OKBLUE + str(ses.delta) + bcolors.ENDC)
